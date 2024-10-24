@@ -96,7 +96,7 @@ Hello There!
 ```
 
 #### Sync Command
-The `sync` command syncs application commands globally or to a specific guild. _Note: global syncing of application commands may take longer than syncing for a specific guild, which is typically instant_
+The `sync` command syncs application commands globally or to a specific guild. This command is also restricted to the owner to avoid API misuse. _Note: global syncing of application commands may take longer than syncing for a specific guild, which is typically instant_
 
 Usage:
 ```sh
