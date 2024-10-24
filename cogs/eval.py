@@ -14,14 +14,14 @@ class Eval(commands.Cog):
         code = code.strip('` ')  # removes backticks and spaces
         
         if code.startswith("py"):
-            code = code[2:].strip()  #removes py prefix
+            code = code[2:].strip()  # removes py prefix
 
         output = io.StringIO()
         
         # redirects stdout
         with contextlib.redirect_stdout(output):
             try:
-                # Use exec to run the code
+                # uses exec to run the code
                 exec(code, {"__builtins__": __builtins__})
             except Exception as e:
                 # captures any exceptions and return them
@@ -35,7 +35,7 @@ class Eval(commands.Cog):
         if not result:
             result = "No output."
         
-        # sends the output back to the Discord channel
+        # sends the output back to the discord channel
         await ctx.send(f"```py\n{result}```")
 
 async def setup(bot):
