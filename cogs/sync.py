@@ -7,7 +7,7 @@ class Sync(commands.Cog):
         self.bot = bot
     
     @commands.command(name="sync")
-    @commands.is_owner()  # ensures that only the bot owner can use this command
+    @commands.is_owner()  # ensures only the bot owner can use this command
     async def sync(self, ctx, guild_id: int = None):  # accepts guild id as optional argument
         if guild_id is None:
             # syncs globally when no id is provided

@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from discord import app_commands
 import os
 from dotenv import load_dotenv
 
@@ -12,7 +11,7 @@ bot = commands.Bot(command_prefix='e.', intents=intents)
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-cogs = ["echo", "sync"]
+cogs = ["echo", "sync", "eval"]
 async def load_cogs(): # loads cogs
     for cog in cogs:
         try:
