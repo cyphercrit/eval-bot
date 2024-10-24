@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 import os
 from dotenv import load_dotenv
 
@@ -8,10 +9,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix='$', intents=intents)
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'Initialized: {client.user}')
+    await bot.load_extension('cogs.utility')
+    print(f'Initialized: {bot.user}')
 
-client.run(TOKEN)
+bot.run(TOKEN)
