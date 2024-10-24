@@ -2,10 +2,13 @@ import discord
 from discord.ext import commands
 import io
 import contextlib
+import asyncio
+import concurrent.futures
 
 class Eval(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.executor = concurrent.futures.ThreadPoolExecutor()
     
     @commands.command(name="eval")
     @commands.is_owner()  # owner only command
@@ -21,11 +24,14 @@ class Eval(commands.Cog):
         # redirects stdout
         with contextlib.redirect_stdout(output):
             try:
-                # uses exec to run the code
-                exec(code, {"__builtins__": __builtins__})
+                # uses asyncio to run the code with a timeout
+                await asyncio.wait_for(self.run_code(code, output), timeout=5)
+            except asyncio.TimeoutError:
+                await ctx.send(f"```Error: Exceded maximum timeout of 5 seconds.```")
+                return
             except Exception as e:
                 # captures any exceptions and return them
-                await ctx.send(f"Error: {e}")
+                await ctx.send(f"```Error: {e}```")
                 return
         
         # gets the output from the stringio
@@ -37,6 +43,19 @@ class Eval(commands.Cog):
         
         # sends the output back to the discord channel
         await ctx.send(f"```py\n{result}```")
+
+    async def run_code(self, code, output):
+        # runs code in separate thread
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(self.executor, self.exec_code, code, output)
+
+    def exec_code(self, code, output):
+        try:
+            exec(code, {"__builtins__": __builtins__})
+        except SyntaxError as e:
+            output.write(f"SyntaxError: {e}")
+        except Exception as e:
+            output.write(f"Exception: {e}")
 
 async def setup(bot):
     await bot.add_cog(Eval(bot))
