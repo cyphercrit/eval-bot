@@ -11,9 +11,9 @@ A Discord bot designed to execute Python code snippets directly from Discord mes
 
 ![Demo Image](https://i.imgur.com/DV08NnQ.png)
 
-## Warning
+## :warning: Warning :warning:
 
-The eval command executes arbitrary Python code, which can be dangerous. Only the bot owner should have access to this command. Misuse of this command can lead to security vulnerabilities, data loss, or other unintended consequences. Use with caution.
+The `eval` command executes arbitrary Python code, which can be dangerous. Only the bot owner should have access to this command. Misuse of this command can lead to security vulnerabilities, data loss, or other unintended consequences. Use with caution.
 
 For more information regarding arbitrary code execution, please refer [here](https://www.geeksforgeeks.org/what-is-arbitrary-code-execution/).
 
