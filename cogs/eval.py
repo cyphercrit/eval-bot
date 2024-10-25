@@ -27,7 +27,7 @@ class Eval(commands.Cog):
                 # uses asyncio to run the code with a timeout
                 await asyncio.wait_for(self.run_code(code, output), timeout=5)
             except asyncio.TimeoutError:
-                await ctx.send(f"```Error: Exceded maximum timeout of 5 seconds.```")
+                await ctx.send(f"```Error: Exceeded maximum timeout of 5 seconds.```")
                 return
             except Exception as e:
                 # captures any exceptions and return them
