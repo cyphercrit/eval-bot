@@ -50,8 +50,27 @@ class Eval(commands.Cog):
         await loop.run_in_executor(self.executor, self.exec_code, code, output)
 
     def exec_code(self, code, output):
+        restricted_globals = {
+            "__builtins__": {
+                "print": print,
+                "range": range,
+                "len": len,
+                "int": int,
+                "float": float,
+                "str": str,
+                "bool": bool,
+                "dict": dict,
+                "list": list,
+                "set": set,
+                "tuple": tuple,
+                "Exception": Exception,
+                "ValueError": ValueError,
+                "SyntaxError": SyntaxError,
+                # add other safe built-ins as needed
+            }
+        }
         try:
-            exec(code, {"__builtins__": __builtins__})
+            exec(code, restricted_globals, {})
         except SyntaxError as e:
             output.write(f"SyntaxError: {e}")
         except Exception as e:

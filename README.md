@@ -1,6 +1,6 @@
 # Eval Bot
 
-A Discord bot designed to execute Python code snippets directly from Discord messages. This bot is primarily focused on providing an eval command that allows the bot owner to run arbitrary Python code and see the output in real-time.
+A Discord bot designed to safely execute Python code snippets directly from Discord messages. This bot is primarily focused on providing an eval command that allows the bot owner to run arbitrary Python code and see the output in real-time.
 
 ## Features
 - **Eval Command**: Execute Python code snippets and get the output directly in Discord, with markdown support.
@@ -13,7 +13,9 @@ A Discord bot designed to execute Python code snippets directly from Discord mes
 
 ## :warning: Warning :warning:
 
-The `eval` command executes arbitrary Python code, which can be dangerous. Only the bot owner should have access to this command. Misuse of this command can lead to security vulnerabilities, data loss, or other unintended consequences. Use with caution.
+The `eval` command executes arbitrary Python code, and while there are security features built in to prevent accidental damage, they are not foolproof to a malicious attacker. Only the bot owner should have access to this command. Misuse of this command can lead to security vulnerabilities, data loss, or other unintended consequences. Use with caution.
+
+The `restricted_globals` dictionary in [eval.py](cogs/eval.py) limits what built-in functions can be used with the `eval` command. Feel free to edit this as needed while keeping any security considerations in mind.
 
 For more information regarding arbitrary code execution, please refer [here](https://www.geeksforgeeks.org/what-is-arbitrary-code-execution/).
 
@@ -71,7 +73,7 @@ print("Hello, World!")
 ````
 **or**
 ```sh
-e.eval print("Hello, World")
+e.eval print("Hello, World!")
 ```
 Output:
 ```
